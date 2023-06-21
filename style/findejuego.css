@@ -1,0 +1,114 @@
+body {
+    background-image: url(/img/victoriafinal.jpg);
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /*para que no se vea el scroll*/
+    background-size: cover; /*para que se ajuste a la pantalla*/
+}
+
+
+.btn-jugar {
+    position: absolute;
+    font-size: 20px;
+    font-family: cursive;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    /*quitar el subrayado*/
+    border-radius: 5px;
+    top: 80%;
+    left: 48%;
+}
+
+.personaje {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    /*para que este en a un lado del texto*/
+    left: 8%;
+    top: 30%;
+    transform: translate(0%, 0%);
+    /*para que este en a un lado del texto*/
+}
+.estrella {
+    position: absolute;
+    /*Posición absoluta para que se pueda mover*/
+    bottom: 0;
+    /* para que la estrella este en la parte de abajo */
+    left: 0;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .estrella {
+    animation: desvanecer 6s linear forwards;
+    animation: moverEstrella 3s linear infinite;
+    /* Aplica la animación de manera infinita */
+  }
+  
+  /* Animación de la estrella */
+  @keyframes moverEstrella {
+    0% {
+      opacity: 0;
+      transform: translateX(0);
+    }
+  
+    50% {
+      opacity: 0;
+      transform: translateX(0);
+    }
+  
+    100% {
+      opacity: 100;
+      transform: translateX(3000%);
+    }
+  }
+
+  .fantasma {
+    position: absolute;
+    top: 10;
+    left: 0;
+    width: 4%;
+    height: 8%;
+  }
+  
+  .fantasma {
+    animation: movimiento-fantasma 3s linear infinite;
+  
+  }
+  @keyframes movimiento-fantasma {
+  
+    /*para que el personaje se mueva a diferentes direcciones  */
+    0% {
+      bottom: 0%;
+      left: 0%;
+      content: url(img/img-fantasma/pac00.png)
+    }
+  
+    25% {
+      bottom: 92%;
+      left: 0%;
+      content: url(img/img-fantasma/pac01.png)
+    }
+  
+    50% {
+      bottom: 92%;
+      left: 96%;
+      content: url(img/img-fantasma/pac02.png)
+    }
+  
+    75% {
+      bottom: 0%;
+      left: 96%;
+      content: url(img/img-fantasma/pac03.png)
+    }
+  
+    100% {
+      bottom: 0%;
+      left: 0%;
+      content: url(img/img-fantasma/pac00.png)
+    }
+  
+  }

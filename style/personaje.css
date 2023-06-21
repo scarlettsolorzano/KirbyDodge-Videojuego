@@ -1,0 +1,32 @@
+.animacion-personaje {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    /*para que este en a un lado del texto*/
+    left: 50%;
+    top: 40%;
+    transform: translate(190%, 0%);
+    /*para que este en a un lado del texto*/
+}
+
+.animacion-personaje {
+    animation: cambioImagen 3s linear infinite;
+}
+
+@keyframes cambioImagen {
+    0% {
+        content: url(img/kirby.png);
+    }
+
+    25% {
+        content: url(img/kirbyPoderoso.png);
+    }
+
+    50% {
+        content: url(img/kirbyHerido.png);
+    }
+
+    100% {
+        content: url(img/kirbyMuerto.png);
+    }
+}

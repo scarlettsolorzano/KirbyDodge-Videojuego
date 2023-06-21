@@ -1,0 +1,260 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIRBY DOGDE</title>
+    <!-- importar javascript -->
+    <script src='js/estrellaDePoder.js'></script>
+    <script src='js/fantasma.js'></script>
+    <script src="js/serpiente.js"></script>
+    <!-- importar css -->
+    <link rel="stylesheet" href="style/style.css">
+</head>
+
+<body onload="Logo()">
+    <div id="barraDeVida">Vida</div>
+    <br id="br">
+    <div id="barra-contador"></div>
+    <canvas id='panel' width="1800px" height="850px"></canvas>
+    <button id="boton" onclick='iniciar()'>Iniciar Nivel 1</button>
+    <p class="objetivo">Objetivo: esquiva a los enemigos y manten vivo a Kirby durante el tiempo establecido. </p>
+
+    <script>
+        //logo de juego 
+        const logo = new Image();
+        logo.src = 'img/logoInicio.png';
+
+        //llamado a todas las imagenes de mi personaje
+        const img = new Image(); //personaje vivo
+        img.src = 'img/kirby.png';
+        const imgOuch = new Image(); //personaje herido
+        imgOuch.src = 'img/kirbyHerido.png';
+        const imgStronge = new Image(); //personaje lastimado 
+        imgStronge.src = 'img/kirbyPoderoso.png'; //personaje muerto
+        const imgMuerto = new Image();
+        imgMuerto.src = 'img/kirbyMuerto.png'  //GAME OVER
+
+        //suntrack del juego
+        const music = new Audio();
+        music.src = "aud/kirby-1.mp3";
+        //suntrack de la colision
+        const ouch = new Audio();
+        ouch.src = "aud/ouch-3-.mp3";
+        //suntrack power up
+        const powerUp = new Audio();
+        powerUp.src = "aud/kirby-super-star-1up.mp3";
+        //suntrack de la muerte
+        const gameOver = new Audio();
+        gameOver.src = "aud/kirby-death.mp3";
+        //suntrack de la victoria
+        const win = new Audio();
+        win.src = "aud/kirby-victory.mp3";
+
+        //variables de movimiento
+        var posX;
+        var posY;
+        var anchoBase;
+        var altoBase;
+        var anchoBola;
+        var altoBola;
+        var incrementoAr = 0;
+        var incrementoAb = 0;
+        var incrementoAd = 0;
+        var incrementoAt = 0;
+
+        //variable de vida
+        var vida = 100;
+        var animacion;
+        var contador = 0;
+        var tiempo = 1250;
+        var porcentaje = 0;
+
+        //creacion de los objetos
+        fantasma = new Array();
+        for (var i = 0; i < 2; i++) {
+            fantasma[i] = new Fantasma(parseInt(Math.random() * 5 + 5), parseInt(Math.random() * 1400 + 200), parseInt(Math.random() * 600 + 200));
+        }
+        estrella = new Array();
+        for (var i = 0; i < 1; i++) {
+            estrella[i] = new Estrella(parseInt(Math.random() * 5 + 10), parseInt(Math.random() * 5 + 10), parseInt(Math.random() * 1400 + 200), parseInt(Math.random() * 600 + 200));
+        }
+        serpiente = new Array();
+        for (var i = 0; i < 3; i++) {
+            serpiente[i] = new Serpiente(parseInt(Math.random() * 1400 + 200), parseInt(Math.random() * 600 + 200), parseInt(Math.random() * 25 + 75), parseInt(Math.random() * 5 + 5));
+        }
+
+
+        //funcion para iniciar el juego
+        function iniciar() {
+            //se declaran las variables de movimiento
+            posX = 100;
+            posY = 200;
+            anchoBola = img.width;
+            altoBola = img.height;
+            animacion = setInterval(Actualiza, 20);
+            //se oculta el boton de inicio
+            var botonDelForm = document.getElementById("boton");
+            botonDelForm.style.display = "none";
+            //se muestra la barra de vida
+            var barraDeVida = document.getElementById("barraDeVida");
+            barraDeVida.style.display = "block";
+            //se muestra la barra de tiempo
+            var barraContador = document.getElementById("barra-contador");
+            barraContador.style.display = "block";
+            var br = document.getElementById("br");
+            br.style.display = "block";
+        }
+
+        function Actualiza() {
+            contador += 1;
+            //soundtrack
+            music.play();
+            //llamado al canvas
+            const canvas = document.getElementById('panel');
+            canvas.getContext;
+            //llamado a las variables de movimiento
+            var anchoBase = canvas.width;
+            var altoBase = canvas.height;
+            const ctx = canvas.getContext('2d');
+            //se limpia el canvas
+            ctx.clearRect(0, 0, anchoBase, altoBase);
+            //se dibuja el personaje
+            posX = posX + incrementoAd - incrementoAt;
+            posY = posY + incrementoAb - incrementoAr;
+            //se declaran las condiciones de los limites del canvas
+            if (posX + anchoBola > anchoBase) posX = anchoBase - anchoBola;
+            if (posX <= 0) posX = 0;
+            if (posY + altoBola > altoBase) posY = altoBase - altoBola;
+            if (posY <= 0) posY = 0;
+            //se dibuja el personaje
+            ctx.drawImage(img, posX, posY);
+
+            //se declaran las funciones de los objetos
+            for (var i = 0; i < fantasma.length; i++) {
+                fantasma[i].Animar(ctx, anchoBase, altoBase);
+            }
+            for (var i = 0; i < estrella.length; i++) {
+                estrella[i].Animar(ctx, anchoBase, altoBase);
+            }
+            for (var i = 0; i < serpiente.length; i++) {
+                serpiente[i].mover(ctx, anchoBase, altoBase);
+            }
+            //se declaran las condiciones de colisiones
+            for (var i = 0; i < estrella.length; i++) {
+                if (estrella[i].colision(posX, posY, anchoBola, altoBola)) {
+                    if (vida < 100) {
+                        vida += 1
+                        ctx.drawImage(imgStronge, posX, posY);
+                        powerUp.play();
+                    };
+                }
+            }
+            for (var i = 0; i < fantasma.length; i++) {
+                if (fantasma[i].colision(posX, posY, anchoBola, altoBola)) {
+                    ctx.drawImage(imgOuch, posX, posY);
+                    vida -= 2;
+                    ouch.play();
+                }
+            }
+            for (var i = 0; i < serpiente.length; i++) {
+                if (serpiente[i].contacto(posX, posY, anchoBola, altoBola)) {
+                    ctx.drawImage(imgOuch, posX, posY);
+                    vida -= 1;
+                    ouch.play();
+                }
+            }
+            if (vida <= 0) {
+                clearInterval(animacion);
+                ctx.drawImage(imgMuerto, posX, posY);
+                ctx.clearRect(0, 0, anchoBase, altoBase);
+                ctx.drawImage(imgMuerto, posX, posY);
+                music.pause();
+                ouch.pause();
+                powerUp.pause();
+                gameOver.play();
+                //despues de un delay, manda a la pagina de gameover
+                setTimeout(function () {
+                    window.location.href = "gameOver1.html";
+                }, 4000);
+            }
+            if (contador == tiempo) {
+                clearInterval(animacion);
+                ctx.clearRect(0, 0, anchoBase, altoBase);
+                ctx.drawImage(imgStronge, posX, posY);
+                music.pause();
+                ouch.pause();
+                powerUp.pause();
+                win.play();
+                //despues de un delay, manda a la pagina de victoria
+                setTimeout(function () {
+                    window.location.href = "victoria1.html";
+                }, 5000);
+            }
+            porcentaje = 100 / tiempo * contador;
+            document.getElementById("barraDeVida").innerHTML = "<div>" + vida + "</div>"
+            var barraVida = document.getElementById("barraDeVida");
+            barraDeVida.style.setProperty("--vida", vida);
+            var barraContador = document.getElementById("barra-contador");
+            barraContador.style.setProperty("--porcentaje", porcentaje);
+        }
+        //teclas de movimiento arriba y abajo
+        function teclas(event) {
+            var tecla = event.keyCode;
+            switch (tecla) {
+                case 38:
+                    incrementoAr = 10;
+                    break;
+                case 40:
+                    incrementoAb = 10;
+                    break;
+                case 39:
+                    incrementoAd = 10;
+                    break;
+                case 37:
+                    incrementoAt = 10;
+                    break;
+            }
+        }
+        function teclas2(event) {
+            var tecla = event.keyCode;
+            switch (tecla) {
+                case 38:
+                    incrementoAr = 0;
+                    break;
+                case 40:
+                    incrementoAb = 0;
+                    break;
+                case 39:
+                    incrementoAd = 0;
+                    break;
+                case 37:
+                    incrementoAt = 0;
+                    break;
+            }
+        }
+        //llamado a las teclas de movimiento
+        window.onkeydown = teclas;
+        window.onkeyup = teclas2;
+        //llamado a la imagen de iniciar juego
+        function Logo() {
+            const canvas = document.getElementById('panel');
+            canvas.getContext;
+            var anchoBase = canvas.width;
+            var altoBase = canvas.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(logo, anchoBase / 2 - logo.width / 2, 200);
+            //se oculta la barra de vida
+            var barra = document.getElementById("barraDeVida");
+            barra.style.display = "none";
+            //se oculta la barra de tiempo
+            var barraContador = document.getElementById("barra-contador");
+            barraContador.style.display = "none";
+            var br = document.getElementById("br");
+            br.style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

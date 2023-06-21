@@ -1,0 +1,25 @@
+/* Estilos para la estrella */
+.estrella {
+    position: absolute; /*Posición absoluta para que se pueda mover*/
+    bottom: 0; /* para que la estrella este en la parte de abajo */
+    left: 0;
+    width: 60px;
+    height: 60px;
+}
+.estrella {
+    animation: desvanecer 6s linear forwards;
+    animation: moverEstrella 3s linear infinite; /* Aplica la animación de manera infinita */
+  }
+
+/* Animación de la estrella */
+@keyframes moverEstrella {
+    0% {
+        opacity: 0; transform: translateX(0);
+      }
+    50% { 
+        opacity: 0; transform: translateX(0);
+     }
+    100% {
+        opacity: 100; transform: translateX(3000%);
+     }
+}

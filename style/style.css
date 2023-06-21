@@ -1,0 +1,104 @@
+body {
+    background-image: url("img/fondo.png");
+    /*para que la imagen se ajuste al tamaño de la pantalla */
+    background-size: cover;
+    /*para que la imagen no se repita */
+    background-repeat: no-repeat;
+    /* centra la imagen */
+    background-position: center center;
+    /* para que la imagen no se mueva */
+    text-align: center;
+    /* para que el texto este en el centro */
+    overflow-y: hidden; /* para que no se pueda hacer scroll vertical */
+}
+
+div {
+    margin: 0;
+    padding: 0;
+
+}
+
+#barraDevida {
+    /* ancho y alto de la barra */
+    width: 800px;
+    height: 30px;
+    /* color de fondo de la barra */
+    background-color: rgb(173, 174, 173);
+    /* color del borde de la barra */
+    border-radius: 10px;
+    position: relative;
+    /* para que el texto este en el centro */
+    text-align: center; 
+    line-height: 30px; /* para que el texto este en el centro */
+    color: white; /* color del texto */
+    font-size: 20px;   /* tamaño de la letra */
+    font-family: cursive; /* tipo de letra */
+    font-weight: bold; /* para que el texto este en negrita */
+    text-shadow: 2px 2px 2px black; /* sombra del texto */
+    letter-spacing: 2px; /* espacio entre letras */
+    z-index: 1; /* para que el texto este por encima de la barra */
+}
+
+#barraDevida::after {
+    content: ""; /* para que el elemento exista */
+    display: block; /* para que el elemento sea un bloque */ 
+    width: calc(var(--vida) * 1%); /* para que el elemento tenga un ancho variable */
+    height: 100%; /* para que el elemento tenga un alto del 100% */
+    background-color: #de4cb2; /* color de fondo del elemento */
+    border-radius: 10px; /* para que el elemento tenga bordes redondeados */
+    position: absolute; /* para que el elemento este posicionado de forma absoluta */
+    top: 0; /* para que el elemento este posicionado en la esquina superior izquierda */
+    left: 0; /* para que el elemento este posicionado en la esquina superior izquierda */
+    z-index: -1; /* para que el elemento este por debajo de la barra */
+}
+
+.objetivo{
+    text-transform: uppercase; /* para que el texto este en mayusculas */
+    font-weight: bold; /* para que el texto este en negrita */
+    font-size: 30px; /* tamaño de la letra */
+    color: white; /* color del texto */
+    text-shadow: 2px 2px 2px black; /* sombra del texto */
+    font-family: cursive; /* tipo de letra */
+    letter-spacing: 2px; /* espacio entre letras */
+}
+
+#barra-contador {
+    width: 600px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    position: relative;
+}
+
+#barra-contador::after {
+    content: "";
+    display: block;
+    width: calc(var(--porcentaje) * 1%);
+    height: 100%;
+    background-color: rgb(47, 224, 186);
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#boton {
+    top: 75%;
+    left: 45%;
+    position: absolute;
+    /* para que el texto este en el centro */
+    text-align: center;
+    /* para que  */
+    line-height: 40px; /* para que el texto este en el centro */
+
+    color: white;
+    font-size: 20px;    /* tamaño de la letra */
+    font-family: cursive; /* tipo de letra */
+    font-weight: bold; /* para que el texto este en negrita */
+    letter-spacing: 2px; /* espacio entre letras */
+    background-color: #223482;  /* color de fondo del boton */
+    border-radius: 10px; /* para que el boton tenga bordes redondeados */ 
+    padding: 10px 20px; /* para que el boton tenga un poco de espacio por dentro */
+    cursor: pointer; /* para que el cursor cambie al pasar por encima */
+    transition: 0.5s; /* tiempo de transicion */
+}

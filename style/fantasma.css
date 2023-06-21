@@ -1,0 +1,95 @@
+.fantasma {
+  position: absolute;
+  top: 10;
+  left: 0;
+  width: 4%;
+  height: 8%;
+}
+
+#fantasma2 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 4%;
+  height: 8%;
+}
+
+.fantasma {
+  animation: movimiento-fantasma 3s linear infinite;
+
+}
+
+#fantasma2 {
+  animation: movimiento-fantasma2 4s linear infinite;
+
+}
+
+@keyframes movimiento-fantasma {
+
+  /*para que el personaje se mueva a diferentes direcciones  */
+  0% {
+    bottom: 0%;
+    left: 0%;
+    content: url(img/img-fantasma/pac00.png)
+  }
+
+  25% {
+    bottom: 92%;
+    left: 0%;
+    content: url(img/img-fantasma/pac01.png)
+  }
+
+  50% {
+    bottom: 92%;
+    left: 96%;
+    content: url(img/img-fantasma/pac02.png)
+  }
+
+  75% {
+    bottom: 0%;
+    left: 96%;
+    content: url(img/img-fantasma/pac03.png)
+  }
+
+  100% {
+    bottom: 0%;
+    left: 0%;
+    content: url(img/img-fantasma/pac00.png)
+  }
+
+}
+
+@keyframes movimiento-fantasma2 {
+
+  /*para que el personaje se mueva a diferentes direcciones  */
+  0% {
+    bottom: 0%;
+    left: 0%;
+    content: url(img/img-fantasma/pac00.png)
+  }
+
+  25% {
+    bottom: 92%;
+    left: 0%;
+    content: url(img/img-fantasma/pac01.png)
+  }
+
+  50% {
+    bottom: 92%;
+    left: 96%;
+    content: url(img/img-fantasma/pac02.png)
+  }
+
+  75% {
+    bottom: 0%;
+    left: 96%;
+    content: url(img/img-fantasma/pac03.png)
+  }
+
+  100% {
+    bottom: 0%;
+    left: 0%;
+    content: url(img/img-fantasma/pac00.png)
+  }
+
+}
